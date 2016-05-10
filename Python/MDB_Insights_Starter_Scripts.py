@@ -3,12 +3,15 @@
 
 import pyodbc
 
-conn = pyodbc.connect('DSN=Python;SERVER=[ServerName];DATABASE=[DBName];UID=[UserName];PWD=[Password]') #you need to add in the correct details from your password management tool
-
 import pandas as pd
 
-query = "SELECT * FROM DWInternal.DimUser"
+data = pd.read_csv("login_stuff.csv")
 
-user_table = pd.read_sql_query(query, conn)
+server_name = data["server"][0]
+database_name = data["database"][0]
+username = data["username"][0]
+password = data["password"][0]
 
-print(user_table.head())
+credentials = "DSN=Python;SERVER=[{0}];DATABASE=[{1}];UID=[{2}];PWD=[{3}]".format(server_name, database_name, username, password)
+conn = pyodbc.connect(credentials) #you need to add in the correct details from your password management tool
+# #print(credentials)
