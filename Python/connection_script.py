@@ -5,7 +5,7 @@ import pyodbc
 
 import pandas as pd
 
-data = pd.read_csv("login_stuff.csv")
+data = pd.read_csv("login_stuff.csv") #you need to create your own local csv file of this - remember to gitignore the file to avoid pushing login credentials to github!
 
 server_name = data["server"][0]
 database_name = data["database"][0]
