@@ -12,6 +12,7 @@ database_name = data["database"][0]
 username = data["username"][0]
 password = data["password"][0]
 
-credentials = "DSN=Python;SERVER=[{0}];DATABASE=[{1}];UID=[{2}];PWD=[{3}]".format(server_name, database_name, username, password)
+credentials = "DSN=Python;SERVER={0};DATABASE={1};UID={2};PWD={3}".format(server_name, database_name, username, password)
 conn = pyodbc.connect(credentials) #you need to add in the correct details from your password management tool
-# #print(credentials)
+
+print(conn)

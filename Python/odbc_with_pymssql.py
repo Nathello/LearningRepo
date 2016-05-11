@@ -4,15 +4,17 @@
 
 import pyodbc
 
-conn = pyodbc.connect('DSN=Python;SERVER=[ServerName];DATABASE=[DBName];UID=[UserName];PWD=[Password]') #you need to add in the correct details from your password management tool
+conn = pyodbc.connect('DSN=Python;SERVER={Servername};DATABASE={Databasename};UID={username};PWD={password}') #you need to add in the correct details from your password management tool
 
 #At this point you should be connected to the database.  Now we need to bring in pymssql for querying the data
+
+print(conn)
 
 import pymssql
 
 cursor = conn.cursor()
 
-results = cursor.execute('SELECT COUNT (DISTINCT dimUserId) FROM DWInternal.DimUser') #Fill in the string to complete the query and we're good to go
+results = cursor.execute('SELECT TOP 10 dimUserId FROM DWInternal.DimUser') #Fill in the string to complete the query and we're good to go
 
 results_list = results.fetchall() #executing the select statement does not bring back the results - fetchall() brings these back which we can then print
 
