@@ -7,5 +7,6 @@ test_file = pd.read_excel("ArgosData.xlsx")
 print(test_file)
 #print(test_file["Period"])
 
-sns.pointplot(x=test_file["Period"], y=test_file["Reported Figure"])
-sns.plt.show()
+backtest_graph = sns.pointplot(x="Period", y="Reported Figure", data = test_file)
+plt.xticks(rotation=45)
+sns.plt.show(backtest_graph)
