@@ -1,34 +1,24 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-# import seaborn as sns
 
 test_file = pd.read_excel("ArgosData.xlsx")
 
-print(test_file)
+fig = plt.figure()
+merchant_spend = fig.add_subplot(1,2,1)
 
-fig, ax1 = plt.subplots()
 reported_figures = test_file["Reported Figure"]
-reporting_period = np.arange(len(y_axis))
-ax1.plot(reporting_period, reported_figures, "b-")
+reporting_period = np.arange(len(reported_figures))
+merchant_spend.plot(reporting_period, reported_figures, "b-")
 xlabels = test_file["Period"]
 plt.xticks(reporting_period, xlabels, rotation = 45)
 
-ax2 = ax1.twinx()
+
+mdb_spend = merchant_spend.twinx()
 mdb_spend_figures = test_file["MDB Spend Figures"]
-ax2.plot(reporting_period, mdb_spend_figures, "r")
+mdb_spend.plot(reporting_period, mdb_spend_figures, "r")
 
-
-# ax1.plot(test_file["Reported Figure"])
-# ax2.plot(test_file["MDB Spend Figures"])
-
-# xlabels = test_file["Period"]
-# plt.xticks(test_file["Reported Figure"], xlabels)
-# plt.xticks(test_file["MDB Spend Figures"], xlabels)
+correlation_graph = fig.add_subplot(1,2,2)
+correlation_graph.scatter(mdb_spend_figures,reported_figures)
 
 plt.show()
-
-# ax1.sns.pointplot(x="Period", y="Reported Figure", data = test_file)
-# ax2.sns.pointplot(x="Period", y="MDB Spend Figures", data = test_file)
-# plt.xticks(rotation=45)
-# sns.plt.show()
