@@ -6,6 +6,10 @@ from matplotlib.ticker import FuncFormatter
 from scipy.stats.stats import pearsonr
 
 test_file = pd.read_excel("ArgosData.xlsx")
+# currency_conversion = lambda x: '£{:,.2f}'.format(x)
+# currency_spend_data = currency_conversion(test_file[["Reported Figure"], ["MDB Spend Figures"]])
+# print(currency_spend_data)
+
 
 fig = plt.figure()
 fig.suptitle("MDB Merchant Backtest", fontsize=20, fontweight='bold')
@@ -28,7 +32,7 @@ mdb_spend.plot(reporting_period, mdb_spend_figures, "r")
 
 data_table = fig.add_subplot(2,2,2)
 data_table.axis('off')
-the_table = table(data_table, np.round(test_file[["Reported Figure", "MDB Spend Figures"]],0), rowLabels=xlabels, loc='center')
+the_table = table(data_table, test_file[["Reported Figure"], ["MDB Spend Figures"]], rowLabels=xlabels, loc='center')
 the_table.auto_set_font_size(False) 
 the_table.set_fontsize(10)
 
