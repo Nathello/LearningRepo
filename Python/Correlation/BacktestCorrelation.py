@@ -8,7 +8,10 @@ from scipy.stats.stats import pearsonr
 test_file = pd.read_excel("ArgosData.xlsx")
 
 fig = plt.figure()
+fig.suptitle("MDB Merchant Backtest", fontsize=20, fontweight='bold')
+
 merchant_spend = fig.add_subplot(2,2,1)
+merchant_spend.set(title=("Spend Comparison"), xlabel=("Reporting Period"), ylabel=("Reported Spend"))
 merchant_spend.get_yaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x), ',')))
 reported_figures = test_file["Reported Figure"]
 reporting_period = np.arange(len(reported_figures))
@@ -18,6 +21,7 @@ plt.xticks(reporting_period, xlabels, rotation = 45)
 
 
 mdb_spend = merchant_spend.twinx()
+mdb_spend.set(ylabel=("MDB Spend"))
 mdb_spend.get_yaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x), ',')))
 mdb_spend_figures = test_file["MDB Spend Figures"]
 mdb_spend.plot(reporting_period, mdb_spend_figures, "r")
@@ -29,6 +33,8 @@ the_table.auto_set_font_size(False)
 the_table.set_fontsize(10)
 
 correlation_graph = fig.add_subplot(2,2,3)
+correlation_graph.set(title=("Correlation"), xlabel=("MDB Spend"), ylabel=("Reported Spend"))
+# correlation_graph.get_yaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x), ',')))
 correlation_graph.get_yaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x), ',')))
 correlation_graph.get_xaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x), ',')))
 correlation_graph.scatter(mdb_spend_figures,reported_figures)
@@ -40,5 +46,7 @@ r, p_value = pearsonr(mdb_spend_figures, reported_figures)
 r_sq = r ** 2
 plt.annotate("r^2 = {0:.2f}".format(r_sq), (0.05, 0.9), xycoords="axes fraction")
 plt.annotate("P Value = {0:.4f}".format(p_value), (0.05, 0.85), xycoords="axes fraction")
+
+plt.subplots_adjust(top=0.92, bottom=0.04, left=0.09, right=0.97, hspace=0.4, wspace=0.61)
 
 plt.show()
