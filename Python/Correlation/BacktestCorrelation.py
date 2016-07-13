@@ -11,8 +11,8 @@ fig = plt.figure()
 fig.suptitle("MDB Merchant Backtest", fontsize=20, fontweight='bold')
 
 merchant_spend = fig.add_subplot(2,2,1)
-merchant_spend.set(title=("Spend Comparison"), xlabel=("Reporting Period"), ylabel=("Reported Spend"))
-merchant_spend.get_yaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x), ',')))
+merchant_spend.set(title=("Spend Comparison"), xlabel=("Reporting Period"), ylabel=("Reported Spend(£000s)"))
+merchant_spend.get_yaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x/1000), ',')))
 reported_figures = test_file["Reported Figure"]
 reporting_period = np.arange(len(reported_figures))
 merchant_spend.plot(reporting_period, reported_figures, "b-")
@@ -21,8 +21,8 @@ plt.xticks(reporting_period, xlabels, rotation = 45)
 
 
 mdb_spend = merchant_spend.twinx()
-mdb_spend.set(ylabel=("MDB Spend"))
-mdb_spend.get_yaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x), ',')))
+mdb_spend.set(ylabel=("MDB Spend(£000s)"))
+mdb_spend.get_yaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x/1000), ',')))
 mdb_spend_figures = test_file["MDB Spend Figures"]
 mdb_spend.plot(reporting_period, mdb_spend_figures, "r")
 
@@ -33,10 +33,9 @@ the_table.auto_set_font_size(False)
 the_table.set_fontsize(10)
 
 correlation_graph = fig.add_subplot(2,2,3)
-correlation_graph.set(title=("Correlation"), xlabel=("MDB Spend"), ylabel=("Reported Spend"))
-# correlation_graph.get_yaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x), ',')))
-correlation_graph.get_yaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x), ',')))
-correlation_graph.get_xaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x), ',')))
+correlation_graph.set(title=("Correlation"), xlabel=("MDB Spend(£000s)"), ylabel=("Reported Spend(£000s)"))
+correlation_graph.get_yaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x/1000), ',')))
+correlation_graph.get_xaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x/1000), ',')))
 correlation_graph.scatter(mdb_spend_figures,reported_figures)
 # calc the trendline (linear)
 z = np.polyfit(mdb_spend_figures, reported_figures, 1)
