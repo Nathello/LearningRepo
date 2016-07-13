@@ -25,7 +25,7 @@ mdb_spend.plot(reporting_period, mdb_spend_figures, "r")
 data_table = fig.add_subplot(2,2,2)
 data_table.xaxis.set_visible(False)
 data_table.yaxis.set_visible(False)
-table(data_table, test_file, loc='center')
+table(data_table, test_file, loc='center', fontsize=22)
 
 correlation_graph = fig.add_subplot(2,2,3)
 correlation_graph.scatter(test_file["MDB Spend Figures"],test_file["Reported Figure"])
