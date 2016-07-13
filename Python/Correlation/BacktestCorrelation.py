@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-# from pandas.tools.plotting import table
+from pandas.tools.plotting import table
 import matplotlib.pyplot as plt
 
 test_file = pd.read_excel("ArgosData.xlsx")
@@ -23,11 +23,9 @@ mdb_spend_figures = test_file["MDB Spend Figures"]
 mdb_spend.plot(reporting_period, mdb_spend_figures, "r")
 
 data_table = fig.add_subplot(2,2,2)
-plt.table(cellText=test_file, cellColours=None,
-      cellLoc='right', colWidths=0.3,
-      rowLabels=None, rowLoc='left',
-      colLabels=test_file.columns.values.tolist(), colColours=None, colLoc='center',
-      loc='bottom')
+data_table.xaxis.set_visible(False)
+data_table.yaxis.set_visible(False)
+table(data_table, test_file, loc='center')
 
 correlation_graph = fig.add_subplot(2,2,3)
 correlation_graph.scatter(test_file["MDB Spend Figures"],test_file["Reported Figure"])
