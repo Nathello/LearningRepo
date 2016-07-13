@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from pandas.tools.plotting import table
 import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
 
 test_file = pd.read_excel("ArgosData.xlsx")
 
@@ -23,12 +24,14 @@ mdb_spend_figures = test_file["MDB Spend Figures"]
 mdb_spend.plot(reporting_period, mdb_spend_figures, "r")
 
 data_table = fig.add_subplot(2,2,2)
-data_table.xaxis.set_visible(False)
-data_table.yaxis.set_visible(False)
-table(data_table, test_file, loc='center', fontsize=22)
+data_table.axis('off')
+data_table.axes.get_xaxis().set_visible(False)
+data_table.axes.get_yaxis().set_visible(False)
+the_table = table(data_table, test_file, loc='center')
+the_table.auto_set_font_size(False) 
+the_table.set_fontsize(10)
 
 correlation_graph = fig.add_subplot(2,2,3)
-correlation_graph.scatter(test_file["MDB Spend Figures"],test_file["Reported Figure"])
-# correlation_graph.scatter(mdb_spend_figures,reported_figures)
+correlation_graph.scatter(mdb_spend_figures,reported_figures)
 
 plt.show()
