@@ -62,7 +62,7 @@ r, p_value = pearsonr(mdb_spend_figures, reported_figures)
 r_sq = r ** 2
 plt.annotate("r^2 = {0:.2f}".format(r_sq), (0.05, 0.9), xycoords="axes fraction")
 # plt.annotate("P Value = {0:.2f}".format(p_value), (0.05, 0.85), xycoords="axes fraction")
-plt.annotate("p_value = " p_value, (0.05, 0.85), xycoords="axes fraction")
+plt.annotate("P Value = {0:.2f}".format(p_value), (0.05, 0.85), xycoords="axes fraction")
 
 plt.subplots_adjust(top=0.88, bottom=0.04, left=0.11, right=0.90, hspace=0.4, wspace=0.61)
 
