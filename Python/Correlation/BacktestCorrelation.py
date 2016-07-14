@@ -4,12 +4,18 @@ from pandas.tools.plotting import table
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter 
 from scipy.stats.stats import pearsonr
+import locale
+
+
+locale.setlocale(locale.LC_ALL,"eng_united-kingdom")
 
 test_file = pd.read_excel("ArgosData.xlsx")
-# currency_conversion = lambda x: '£{:,.2f}'.format(x)
-# currency_spend_data = currency_conversion(test_file[["Reported Figure"], ["MDB Spend Figures"]])
-# print(currency_spend_data)
 
+int_reported_figures = pd.to_numeric(test_file["Reported Figure"])
+int_mdb_spend = pd.to_numeric(test_file["MDB Spend Figures"])
+
+test_file["Reported Figures (£)"] = ['£{:20,.2f}'.format(x) for x in int_reported_figures]
+test_file["MDB Spend Figures (£)"] = ['£{:20,.2f}'.format(x) for x in int_mdb_spend]
 
 fig = plt.figure()
 fig.suptitle("MDB Merchant Backtest", fontsize=20, fontweight='bold')
@@ -32,7 +38,7 @@ mdb_spend.plot(reporting_period, mdb_spend_figures, "r")
 
 data_table = fig.add_subplot(2,2,2)
 data_table.axis('off')
-the_table = table(data_table, test_file[["Reported Figure"], ["MDB Spend Figures"]], rowLabels=xlabels, loc='center')
+the_table = table(data_table, test_file[["Reported Figures (£)", "MDB Spend Figures (£)"]], rowLabels=xlabels, loc='center')
 the_table.auto_set_font_size(False) 
 the_table.set_fontsize(10)
 
