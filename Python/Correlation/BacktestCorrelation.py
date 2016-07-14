@@ -25,16 +25,18 @@ merchant_spend.set(title=("Spend Comparison"), xlabel=("Reporting Period"), ylab
 merchant_spend.get_yaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x/1000), ',')))
 reported_figures = test_file["Reported Figure"]
 reporting_period = np.arange(len(reported_figures))
-merchant_spend.plot(reporting_period, reported_figures, "b-")
+merchant_spend_series = merchant_spend.plot(reporting_period, reported_figures, "b-", label="Reported Figure")
 xlabels = test_file["Period"]
 plt.xticks(reporting_period, xlabels, rotation = 45)
+merchant_spend_legend = merchant_spend.legend(loc='upper left', bbox_to_anchor=(0.5, 0.5))
 
 
 mdb_spend = merchant_spend.twinx()
 mdb_spend.set(ylabel=("MDB Spend(£000s)"))
 mdb_spend.get_yaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x/1000), ',')))
 mdb_spend_figures = test_file["MDB Spend Figures"]
-mdb_spend.plot(reporting_period, mdb_spend_figures, "r")
+mdb_spend_series = mdb_spend.plot(reporting_period, mdb_spend_figures, "r")
+mdb_spend_legend = mdb_spend.legend(loc='center left')
 
 data_table = fig.add_subplot(2,2,2)
 data_table.axis('off')
